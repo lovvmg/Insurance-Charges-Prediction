@@ -1,6 +1,6 @@
 # 🏥 Insurance Charges Prediction
 
-Predicting medical insurance charges using regression models and interaction terms, based on the US Medical Insurance dataset.
+Predicting medical insurance charges using regression models and interaction terms — based on the US Medical Insurance dataset.
 
 ---
 
@@ -39,6 +39,8 @@ This project explores what drives medical insurance premiums and builds a predic
 
 > Actuary note: High skewness + kurtosis = non-uniform risk distribution → standard premium pricing based on mean alone would underestimate tail risk.
 
+![Charges Distribution](images/charges_distribution.png)
+
 ### Key Correlations with `charges`
 
 | Feature | Correlation |
@@ -49,6 +51,14 @@ This project explores what drives medical insurance premiums and builds a predic
 | Others | < 0.08 |
 
 **Smoker status is by far the dominant predictor.**
+
+![Smoker vs Charges](images/smoker_vs_charges.png)
+
+![Age vs Charges](images/age_vs_charges.png)
+
+![BMI vs Charges](images/bmi_vs_charges.png)
+
+![Correlation Heatmap](images/correlation_heatmap.png)
 
 ---
 
@@ -71,7 +81,14 @@ This project explores what drives medical insurance premiums and builds a predic
 | Lasso | 0.74 | 0.79 |
 | ElasticNet | 0.65 | 0.71 |
 
-All three linear models hit the same ceiling at R² = 0.79. ElasticNet underperforms, too much regularization killing signal.
+All three linear models hit the same ceiling at R² = 0.79. ElasticNet underperforms — too much regularization killing signal.
+
+| Model | Actual vs Predicted |
+|---|---|
+| LinearR | ![LinearR](images/actual_vs_predicted.png) |
+| Lasso | ![Lasso](images/actual_vs_predicted_lasso.png) |
+| Ridge | ![Ridge](images/actual_vs_predicted_ridge.png) |
+| ElasticNet | ![ElasticNet](images/actual_vs_predicted_elastic.png) |
 
 ---
 
@@ -85,7 +102,7 @@ Added two engineered features:
 |---|---|---|---|
 | Linear + Interactions | 0.82 | **0.88** | 0.836 |
 
-Interaction terms boosted R² from 0.79 → 0.88 , capturing that BMI and age have amplified effects *specifically for smokers*.
+Interaction terms boosted R² from 0.79 → 0.88 — capturing that BMI and age have amplified effects *specifically for smokers*.
 
 ---
 
@@ -96,7 +113,7 @@ Interaction terms boosted R² from 0.79 → 0.88 , capturing that BMI and age ha
 | Decision Tree | 4 | 0.865 | 0.864 |
 | Random Forest | 4 | 0.872 | **0.871** |
 
-Random Forest at max_depth=4 is the sweet spot, negligible gap between train/test, no overfitting. Deeper trees (depth 7-8) showed clear overfitting (train ~0.93, test ~0.80).
+Random Forest at max_depth=4 is the sweet spot — negligible gap between train/test, no overfitting. Deeper trees (depth 7-8) showed clear overfitting (train ~0.93, test ~0.80).
 
 ### Feature Importance (Decision Tree)
 
@@ -107,13 +124,15 @@ Random Forest at max_depth=4 is the sweet spot, negligible gap between train/tes
 | `age` | 11.4% |
 | Others | < 0.5% |
 
+![Feature Importance](images/feature_importance.png)
+
 ---
 
 ## 📊 Model Comparison Summary
 
 | Model | Test R² | Notes |
 |---|---|---|
-| Linear / Ridge / Lasso | 0.79 | Plateau, linear assumption too strict |
+| Linear / Ridge / Lasso | 0.79 | Plateau — linear assumption too strict |
 | ElasticNet | 0.71 | Over-regularized |
 | **Linear + Interactions** | **0.88** | Best interpretable model |
 | Decision Tree (depth=4) | 0.86 | Clean, no overfitting |
@@ -143,7 +162,7 @@ Random Forest at max_depth=4 is the sweet spot, negligible gap between train/tes
 ## 🚀 How to Run
 
 ```bash
-git clone https://github.com/your-username/insurance-charges-prediction.git
+git clone https://github.com/lovvmg/insurance-charges-prediction.git
 cd insurance-charges-prediction
 pip install -r requirements.txt
 jupyter notebook analysis2.ipynb
@@ -152,3 +171,4 @@ jupyter notebook analysis2.ipynb
 **Dataset:** Download `insurance.csv` from [Kaggle](https://www.kaggle.com/datasets/mirichoi0218/insurance) and place it in the project root (or update the path in cell 1).
 
 ---
+
